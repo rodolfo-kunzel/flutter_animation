@@ -33,13 +33,48 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ListView.builder(
-          controller: controller,
-          itemCount: items.length,
-          itemBuilder: (context, index) => const ListViewAnimatedItem(
-            title: 'item 1',
-            description: 'item 1',
+      appBar: AppBar(
+        title: const Text('Animation class'),
+        titleSpacing: 10,
+        centerTitle: true,
+        toolbarOpacity: 0.5,
+      ),
+      backgroundColor: Colors.yellowAccent,
+      floatingActionButton:
+          FloatingActionButton(onPressed: () => _dialogBuilder(context)),
+    );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showGeneralDialog<void>(
+      context: context,
+      barrierLabel: '',
+      barrierDismissible: true,
+      transitionDuration: const Duration(milliseconds: 500),
+      pageBuilder: (_, __, ___) => const Placeholder(),
+      transitionBuilder: (BuildContext context, Animation<double> a1,
+              Animation<double> a2, Widget widget) =>
+          SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(0.0, 1.5),
+          end: Offset.zero,
+        ).animate(CurvedAnimation(parent: a1, curve: Curves.decelerate)),
+        child: Dialog(
+          child: Container(
+            clipBehavior: Clip.hardEdge,
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+            constraints: const BoxConstraints(maxHeight: 400, maxWidth: 800),
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(15))),
+            child: ListView.builder(
+              controller: controller,
+              itemCount: items.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) => const AnimatedListViewItem(
+                title: 'item 1',
+                description: 'item 1',
+              ),
+            ),
           ),
         ),
       ),

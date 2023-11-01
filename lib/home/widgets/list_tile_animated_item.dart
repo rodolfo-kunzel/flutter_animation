@@ -1,16 +1,18 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-class ListViewAnimatedItem extends StatefulWidget {
-  const ListViewAnimatedItem(
+class AnimatedListViewItem extends StatefulWidget {
+  const AnimatedListViewItem(
       {super.key, required this.title, required this.description});
   final String title;
   final String description;
 
   @override
-  State<ListViewAnimatedItem> createState() => _ListViewAnimatedItemState();
+  State<AnimatedListViewItem> createState() => _AnimatedListViewItemState();
 }
 
-class _ListViewAnimatedItemState extends State<ListViewAnimatedItem>
+class _AnimatedListViewItemState extends State<AnimatedListViewItem>
     with SingleTickerProviderStateMixin {
   late final AnimationController controller;
   late final Animation<double> itemHeight;
@@ -19,20 +21,26 @@ class _ListViewAnimatedItemState extends State<ListViewAnimatedItem>
 
   var isExpanded = false;
 
+  final double _closedItemHeight = 30;
+  final double _expandedItemHeight = 100;
+
   @override
   void initState() {
     super.initState();
-    controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500));
 
     controller.addListener(() {
       setState(() {});
     });
 
-    itemHeight = Tween<double>(begin: 50, end: 100).animate(controller);
+    itemHeight =
+        Tween<double>(begin: _closedItemHeight, end: _expandedItemHeight)
+            .animate(controller);
+    itemIconButtonRotation =
+        Tween<double>(begin: pi, end: 0).animate(controller);
     itemColor = ColorTween(begin: Colors.blueGrey, end: Colors.white)
         .animate(controller);
-    itemIconButtonRotation = Tween(begin: 1.0, end: 0.5).animate(controller);
   }
 
   @override
@@ -41,7 +49,7 @@ class _ListViewAnimatedItemState extends State<ListViewAnimatedItem>
     super.dispose();
   }
 
-  void _onPressed() {
+  void _onTap() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       isExpanded ? controller.reverse() : controller.forward();
       isExpanded = !isExpanded;
@@ -50,33 +58,30 @@ class _ListViewAnimatedItemState extends State<ListViewAnimatedItem>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: itemColor.value,
-      height: itemHeight.value,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Text(widget.title),
-              const Spacer(),
-              AnimatedRotation(
-                duration: const Duration(seconds: 1),
-                turns: itemIconButtonRotation.value,
-                child: IconButton(
-                  onPressed: _onPressed,
-                  icon: const Icon(
-                    Icons.expand_less_rounded,
-                  ),
+    return InkWell(
+      onTap: _onTap,
+      child: Container(
+        color: itemColor.value,
+        height: itemHeight.value,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(widget.title),
+                Transform.rotate(
+                  angle: itemIconButtonRotation.value,
+                  child: const Icon(Icons.expand_less_rounded),
                 ),
-              ),
+              ],
+            ),
+            if (isExpanded && !controller.isAnimating) ...[
+              const SizedBox(height: 10),
+              Text(widget.description),
             ],
-          ),
-          if (isExpanded) ...[
-            const SizedBox(height: 10),
-            Text(widget.description),
-          ]
-        ],
+          ],
+        ),
       ),
     );
   }
