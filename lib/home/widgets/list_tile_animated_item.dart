@@ -14,45 +14,41 @@ class AnimatedListViewItem extends StatefulWidget {
 
 class _AnimatedListViewItemState extends State<AnimatedListViewItem>
     with SingleTickerProviderStateMixin {
-  late final AnimationController controller;
-  late final Animation<double> itemHeight;
-  late final Animation<Color?> itemColor;
-  late final Animation<double> itemIconButtonRotation;
+  late final AnimationController _controller;
+  late final Animation<Color?> _itemColor;
+  late final Animation<double> _itemIconButtonRotation;
 
-  var isExpanded = false;
+  final _animationDurationInMiliseconds = 400;
 
-  final double _closedItemHeight = 30;
-  final double _expandedItemHeight = 100;
+  var _isExpanded = false;
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
+    _controller = AnimationController(
+        vsync: this,
+        duration: Duration(milliseconds: _animationDurationInMiliseconds));
 
-    controller.addListener(() {
+    _controller.addListener(() {
       setState(() {});
     });
 
-    itemHeight =
-        Tween<double>(begin: _closedItemHeight, end: _expandedItemHeight)
-            .animate(controller);
-    itemIconButtonRotation =
-        Tween<double>(begin: pi, end: 0).animate(controller);
-    itemColor = ColorTween(begin: Colors.blueGrey, end: Colors.white)
-        .animate(controller);
+    _itemIconButtonRotation =
+        Tween<double>(begin: pi, end: 0).animate(_controller);
+    _itemColor = ColorTween(begin: Colors.blueGrey, end: Colors.black)
+        .animate(_controller);
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   void _onTap() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      isExpanded ? controller.reverse() : controller.forward();
-      isExpanded = !isExpanded;
+      _isExpanded ? _controller.reverse() : _controller.forward();
+      _isExpanded = !_isExpanded;
     });
   }
 
@@ -60,26 +56,26 @@ class _AnimatedListViewItemState extends State<AnimatedListViewItem>
   Widget build(BuildContext context) {
     return InkWell(
       onTap: _onTap,
-      child: Container(
-        color: itemColor.value,
-        height: itemHeight.value,
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
+      child: Align(
+        heightFactor: 1,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(widget.title),
-                Transform.rotate(
-                  angle: itemIconButtonRotation.value,
-                  child: const Icon(Icons.expand_less_rounded),
-                ),
-              ],
+            Expanded(
+              child: AnimatedCrossFade(
+                duration:
+                    Duration(milliseconds: _animationDurationInMiliseconds),
+                firstChild: Text(widget.title),
+                secondChild: Text(widget.description),
+                crossFadeState: _isExpanded
+                    ? CrossFadeState.showSecond
+                    : CrossFadeState.showFirst,
+              ),
             ),
-            if (isExpanded && !controller.isAnimating) ...[
-              const SizedBox(height: 10),
-              Text(widget.description),
-            ],
+            Transform.rotate(
+              angle: _itemIconButtonRotation.value,
+              child: const Icon(Icons.expand_less_rounded),
+            ),
           ],
         ),
       ),

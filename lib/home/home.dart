@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_animation/data/facts.dart';
 import 'package:flutter_animation/home/widgets/list_tile_animated_item.dart';
 
 class Home extends StatefulWidget {
@@ -9,26 +12,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final Map items = <String, String>{
-    'item 1': 'Description 1',
-    'item 2': 'Descruption 2',
-    'item 3': 'Description 3',
-    'item 4': 'Description 4',
-    'item 5': 'Descruition 5',
-    'item 6': 'Description 6',
-    'item 7': 'Description 7',
-    'item 8': 'Description 8',
-    'item 9': 'Description 9',
-    'item 10': 'Descrition 10',
-    'item 11': 'Description 11',
-    'item 12': 'Description 12',
-    'item 13': 'Description 13',
-    'item 14': 'Description 14',
-    'item 15': 'Description 15',
-    'item 16': 'Description 16',
-  };
+  final _controller = ScrollController();
 
-  final controller = ScrollController();
+  final _endDialogOffset = Offset.zero;
+  final _beginDialogOffset = const Offset(0.0, 1.5);
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +26,17 @@ class _HomeState extends State<Home> {
         centerTitle: true,
         toolbarOpacity: 0.5,
       ),
-      backgroundColor: Colors.yellowAccent,
-      floatingActionButton:
-          FloatingActionButton(onPressed: () => _dialogBuilder(context)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _dialogBuilder(context),
+        isExtended: true,
+      ),
     );
   }
 
   Future<void> _dialogBuilder(BuildContext context) {
+    final dialogHeight = MediaQuery.of(context).size.height * 0.4;
+    final dialogWidth = MediaQuery.of(context).size.height * 0.8;
+
     return showGeneralDialog<void>(
       context: context,
       barrierLabel: '',
@@ -56,23 +47,23 @@ class _HomeState extends State<Home> {
               Animation<double> a2, Widget widget) =>
           SlideTransition(
         position: Tween<Offset>(
-          begin: const Offset(0.0, 1.5),
-          end: Offset.zero,
+          begin: _beginDialogOffset,
+          end: _endDialogOffset,
         ).animate(CurvedAnimation(parent: a1, curve: Curves.decelerate)),
         child: Dialog(
           child: Container(
-            clipBehavior: Clip.hardEdge,
+            width: dialogWidth,
+            height: dialogHeight,
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-            constraints: const BoxConstraints(maxHeight: 400, maxWidth: 800),
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(15))),
             child: ListView.builder(
-              controller: controller,
-              itemCount: items.length,
+              controller: _controller,
+              itemCount: facts.length,
               shrinkWrap: true,
-              itemBuilder: (context, index) => const AnimatedListViewItem(
-                title: 'item 1',
-                description: 'item 1',
+              itemBuilder: (context, index) => AnimatedListViewItem(
+                title: facts[index].title,
+                description: facts[index].description,
               ),
             ),
           ),

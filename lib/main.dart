@@ -15,13 +15,25 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData.dark(),
       title: 'Flutter Demo',
-      theme: ThemeData.dark(useMaterial3: true),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: const ColorScheme.dark(
+          primary: Color(0xFFD4AF37),
+          background: Colors.black,
+          surface: Color(0xFFD4AF37),
+          onPrimary: Colors.black,
+          onSecondary: Colors.black,
+          onBackground: Color(0xFFD4AF37),
+          onSurface: Colors.black,
+          secondary: Color(0xFFD4AF37),
+          error: Colors.red,
+          onError: Colors.black,
+        ),
+      ),
       routes: {
         '/': (context) => const Home(),
         '/home': (context) => const Home(),
       },
     );
   }
-
-  
 }

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -43,8 +41,7 @@ class _SplashScreenState extends State<SplashScreen>
         Tween<double>(begin: 34, end: 0).animate(controller);
     text2TranslationAnimation =
         Tween<double>(begin: -22, end: 0).animate(controller);
-    lineSizeAnimation =
-        Tween<double>(begin: 0, end: 180).animate(controller);
+    lineSizeAnimation = Tween<double>(begin: 0, end: 180).animate(controller);
 
     //called after build method in finished
     WidgetsBinding.instance.addPostFrameCallback(
