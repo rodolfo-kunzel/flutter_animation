@@ -9,7 +9,7 @@ List<Fact> facts = [
   Fact(
     title: "The Eiffel Tower's Height",
     description:
-        "The Eiffel Tower in Paris, France, stands at a height of 324 meters (1,063 feet). It was completed in 1889 for the World's Fair.The Eiffel Tower in Paris, France, stands at a height of 324 meters (1,063 feet). It was completed in 1889 for the World's Fair.The Eiffel Tower in Paris, France, stands at a height of 324 meters (1,063 feet). It was completed in 1889 for the World's Fair.The Eiffel Tower in Paris, France, stands at a height of 324 meters (1,063 feet). It was completed in 1889 for the World's Fair.The Eiffel Tower in Paris, France, stands at a height of 324 meters (1,063 feet). It was completed in 1889 for the World's Fair.The Eiffel Tower in Paris, France, stands at a height of 324 meters (1,063 feet). It was completed in 1889 for the World's Fair.",
+        "The Eiffel Tower in Paris, France, stands at a height of 324 meters (1,063 feet). It was completed in 1889 for the World's Fair.",
   ),
   Fact(
     title: "The Speed of Light",

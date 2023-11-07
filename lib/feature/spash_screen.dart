@@ -31,7 +31,6 @@ class _SplashScreenState extends State<SplashScreen>
 
     controller.addListener(
       () {
-        print(controller.value);
         setState(() {});
       },
     );
