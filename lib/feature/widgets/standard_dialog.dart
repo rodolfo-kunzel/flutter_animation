@@ -17,9 +17,11 @@ class StandardDialog extends StatelessWidget {
 
     return AlertDialog(
       clipBehavior: Clip.hardEdge,
+      backgroundColor: const Color.fromARGB(255, 34, 14, 7),
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(40))),
       title: title,
+      titleTextStyle: const TextStyle(color: Color.fromARGB(255, 254, 198, 95)),
       content: SizedBox(
         height: height,
         width: width,
