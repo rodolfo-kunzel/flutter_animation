@@ -36,8 +36,9 @@ class _AnimatedListViewItemState extends State<AnimatedListViewItem>
     _itemIconButtonRotation =
         Tween<double>(begin: pi, end: 0).animate(_controller);
     _itemColor = ColorTween(
-            begin: Colors.white, end: const Color.fromARGB(255, 197, 209, 215))
-        .animate(_controller);
+      begin: const Color.fromARGB(255, 255, 219, 151),
+      end: const Color.fromARGB(255, 254, 198, 95),
+    ).animate(_controller);
   }
 
   @override
