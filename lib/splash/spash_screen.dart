@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -31,28 +29,64 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
+    //state management tool
     controller.addListener(
       () {
-        print(controller.value);
         setState(() {});
       },
     );
 
-    //Tween are objects that represents animations beeing able to link the previous controller
-    text1TranslationAnimation =
-        Tween<double>(begin: 34, end: 0).animate(controller);
-    text2TranslationAnimation =
-        Tween<double>(begin: -22, end: 0).animate(controller);
-    lineSizeAnimation =
-        Tween<double>(begin: 0, end: 180).animate(controller);
+    //end of animation trigger
+    controller.addStatusListener((status) {
+      if (status == AnimationStatus.dismissed && controller.value == 0) {
+        // ignore: avoid_print
+        print('Navigation.pushNamed("/home")');
+      }
+    });
+
+    controller.addStatusListener((status) {});
+
+    //Tween are objects that represents animations beeing able to link the previous controller with different intervals
+    text1TranslationAnimation = Tween<double>(begin: 34, end: 0).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: const Interval(0.25, 0.85, curve: Curves.easeOutBack),
+      ),
+    );
+    text2TranslationAnimation = Tween<double>(begin: -22, end: 0).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: const Interval(0.25, 0.85, curve: Curves.easeOutBack),
+      ),
+    );
+    //animation to controll sequence of line movement
+    lineSizeAnimation = TweenSequence<double>([
+      TweenSequenceItem(
+          tween: Tween<double>(begin: 0, end: 180)
+              .chain(CurveTween(curve: Curves.decelerate)),
+          weight: 25),
+      TweenSequenceItem(tween: Tween<double>(begin: 180, end: 180), weight: 60),
+      TweenSequenceItem(tween: Tween<double>(begin: 180, end: 0), weight: 15),
+    ]).animate(controller);
 
     //called after build method in finished
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        controller.forward();
+        controller.animateTo(0.85).whenComplete(
+              () => controller.repeat(min: 0.8, max: 1.0, reverse: true),
+            );
+        Future.wait([
+          //array of future actions to be completed until animation finish
+          backdroundAction(),
+        ]).whenComplete(() => controller.reverse());
       },
     );
     super.initState();
+  }
+
+  //fake delay to represent some backdround action
+  Future<void> backdroundAction() async {
+    await Future.delayed(const Duration(seconds: 10));
   }
 
   @override
