@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation/constants/color_constants.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,6 +20,9 @@ class _SplashScreenState extends State<SplashScreen>
   late final Animation<double> text1TranslationAnimation;
   late final Animation<double> text2TranslationAnimation;
   late final Animation<double> lineSizeAnimation;
+
+  final String title = 'Snowman Labs';
+  final String subtitle = 'Flutter Stack Meeting';
 
   @override
   void initState() {
@@ -44,8 +49,6 @@ class _SplashScreenState extends State<SplashScreen>
       }
     });
 
-    controller.addStatusListener((status) {});
-
     //Tween are objects that represents animations beeing able to link the previous controller with different intervals
     text1TranslationAnimation = Tween<double>(begin: 34, end: 0).animate(
       CurvedAnimation(
@@ -53,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen>
         curve: const Interval(0.25, 0.85, curve: Curves.easeOutBack),
       ),
     );
-    text2TranslationAnimation = Tween<double>(begin: -22, end: 0).animate(
+    text2TranslationAnimation = Tween<double>(begin: -25, end: 0).animate(
       CurvedAnimation(
         parent: controller,
         curve: const Interval(0.25, 0.85, curve: Curves.easeOutBack),
@@ -84,11 +87,6 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
   }
 
-  //fake delay to represent some backdround action
-  Future<void> backdroundAction() async {
-    await Future.delayed(const Duration(seconds: 10));
-  }
-
   @override
   void dispose() {
     // we have to dispose the controller once its constantly listening the app
@@ -96,9 +94,15 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
+  //fake delay to represent some backdround action
+  Future<void> backdroundAction() async {
+    await Future.delayed(const Duration(seconds: 10));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: ColorConstants.blueSnow,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -106,9 +110,9 @@ class _SplashScreenState extends State<SplashScreen>
             ClipRRect(
               child: Transform.translate(
                 offset: Offset(0, text1TranslationAnimation.value),
-                child: const Text(
-                  'Flutterando',
-                  style: TextStyle(
+                child: Text(
+                  title,
+                  style: GoogleFonts.rubik(
                     fontSize: 30,
                   ),
                 ),
@@ -122,9 +126,9 @@ class _SplashScreenState extends State<SplashScreen>
             ClipRRect(
               child: Transform.translate(
                 offset: Offset(0, text2TranslationAnimation.value),
-                child: const Text(
-                  'Masterclass',
-                  style: TextStyle(
+                child: Text(
+                  subtitle,
+                  style: GoogleFonts.rubik(
                     fontSize: 20,
                   ),
                 ),
