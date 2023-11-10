@@ -124,7 +124,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   //fake delay to represent some backdround action
   Future<void> backdroundAction() async {
-    await Future.delayed(const Duration(seconds: 10));
+    await Future.delayed(const Duration(seconds: 1));
   }
 
   @override

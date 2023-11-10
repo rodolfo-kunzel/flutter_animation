@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation/constants/color_constants.dart';
-import 'package:flutter_animation/constants/icon_constants.dart';
 import 'package:flutter_animation/feature/home/widgets/standard_bottom_navigation_bar.dart';
 import 'package:flutter_animation/feature/home/widgets/standard_page_view.dart';
-import 'package:flutter_svg/svg.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
