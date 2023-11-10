@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation/constants/color_constants.dart';
 
 class StandardDialog extends StatelessWidget {
   const StandardDialog(
@@ -17,11 +18,11 @@ class StandardDialog extends StatelessWidget {
 
     return AlertDialog(
       clipBehavior: Clip.hardEdge,
-      backgroundColor: const Color.fromARGB(255, 34, 14, 7),
+      backgroundColor: ColorConstants.blueSnow,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(40))),
       title: title,
-      titleTextStyle: const TextStyle(color: Color.fromARGB(255, 254, 198, 95)),
+      titleTextStyle: const TextStyle(color: ColorConstants.yellowSnow),
       content: SizedBox(
         height: height,
         width: width,

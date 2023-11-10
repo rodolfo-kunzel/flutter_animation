@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation/constants/color_constants.dart';
 
 class StandardBottomNavigationBar extends StatefulWidget {
   const StandardBottomNavigationBar(
@@ -26,7 +27,7 @@ class _StandardBottomNavigationBarState
       currentIndex: widget.currentIndex,
       items: _bottomNavigationItems,
       backgroundColor: Colors.transparent,
-      selectedItemColor: const Color.fromARGB(255, 254, 198, 95),
+      selectedItemColor: ColorConstants.yellowSnow,
       unselectedItemColor: Colors.white,
       onTap: (newValue) => widget.onTap(newValue),
       landscapeLayout: BottomNavigationBarLandscapeLayout.centered,

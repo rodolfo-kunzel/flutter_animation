@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animation/constants/color_constants.dart';
 
 class AnimatedListViewItem extends StatefulWidget {
   const AnimatedListViewItem(
@@ -36,8 +37,8 @@ class _AnimatedListViewItemState extends State<AnimatedListViewItem>
     _itemIconButtonRotation =
         Tween<double>(begin: pi, end: 0).animate(_controller);
     _itemColor = ColorTween(
-      begin: const Color.fromARGB(255, 255, 219, 151),
-      end: const Color.fromARGB(255, 254, 198, 95),
+      begin: ColorConstants.yellowSnow,
+      end: ColorConstants.whiteSnow,
     ).animate(_controller);
   }
 

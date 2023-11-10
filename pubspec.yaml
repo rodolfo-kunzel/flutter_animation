@@ -55,16 +55,12 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-<<<<<<< HEAD
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
-=======
-  assets:
     - assets/images/sunset_one.jpg
     - assets/images/sunset_two.jpg
     - assets/images/sunset_three.jpg
->>>>>>> main
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation/constants/color_constants.dart';
 import 'package:flutter_animation/constants/icon_constants.dart';
+import 'package:flutter_animation/feature/home.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -44,12 +45,21 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     //end of animation trigger
-    controller.addStatusListener((status) {
-      if (status == AnimationStatus.dismissed && controller.value == 0) {
-        // ignore: avoid_print
-        print('Navigation.pushNamed("/home")');
-      }
-    });
+    controller.addStatusListener(
+      (status) {
+        if (status == AnimationStatus.dismissed && controller.value == 0) {
+          Navigator.pushReplacement(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) => const Home(),
+              transitionDuration: const Duration(seconds: 1),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+          );
+        }
+      },
+    );
 
     //Tween are objects that represents animations beeing able to link the previous controller with different intervals
     text1TranslationAnimation = Tween<double>(begin: 34, end: 0).animate(
@@ -104,7 +114,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   //fake delay to represent some backdround action
   Future<void> backdroundAction() async {
-    await Future.delayed(const Duration(seconds: 10));
+    await Future.delayed(const Duration(seconds: 1));
   }
 
   @override
@@ -115,12 +125,23 @@ class _SplashScreenState extends State<SplashScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Transform.translate(
-              offset: Offset(logoTranslationAnimation.value, 0),
-              child: SvgPicture.asset(
-                IconConstants.logoSnow,
-                height: 100,
-              ),
+            Stack(
+              children: [
+                Transform.translate(
+                  offset: Offset(logoTranslationAnimation.value, 0),
+                  child: SvgPicture.asset(
+                    IconConstants.logo2Snow,
+                    height: 100,
+                  ),
+                ),
+                Hero(
+                  tag: 'logo',
+                  child: SvgPicture.asset(
+                    IconConstants.logoSnow,
+                    height: 100,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 150,

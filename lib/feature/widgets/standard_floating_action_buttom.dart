@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation/constants/color_constants.dart';
 import 'package:flutter_animation/data/facts.dart';
 import 'package:flutter_animation/feature/widgets/list_tile_animated_item.dart';
 import 'package:flutter_animation/feature/widgets/standard_dialog.dart';
@@ -20,10 +21,12 @@ class _StandardFloatingActionButtomState
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-        enableFeedback: true,
-        onPressed: () => _dialogBuilder(context),
-        backgroundColor: const Color.fromARGB(255, 254, 198, 95),
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap);
+      enableFeedback: true,
+      onPressed: () => _dialogBuilder(context),
+      backgroundColor: ColorConstants.yellowSnow,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      child: const Icon(Icons.list_rounded, color: ColorConstants.blueSnow,),
+    );
   }
 
   Future<void> _dialogBuilder(BuildContext context) {

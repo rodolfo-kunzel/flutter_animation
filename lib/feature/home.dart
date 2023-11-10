@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation/constants/color_constants.dart';
+import 'package:flutter_animation/constants/icon_constants.dart';
 import 'package:flutter_animation/feature/widgets/standard_bottom_navigation_bar.dart';
 import 'package:flutter_animation/feature/widgets/standard_floating_action_buttom.dart';
 import 'package:flutter_animation/feature/widgets/standard_page_view.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,17 +20,23 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 34, 14, 7),
+      backgroundColor: ColorConstants.blueSnow,
       appBar: AppBar(
+        leading: Hero(
+          tag: 'logo',
+          child: SvgPicture.asset(
+            IconConstants.logoSnow,
+            height: 30,
+          ),
+        ),
         title: const Text('Animation class'),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: ColorConstants.blueSnow,
       ),
-      floatingActionButton: const StandardFloatingActionButtom(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: StandardBottomNavigationBar(
           currentIndex: currentIndex, onTap: _onTap),
-      body: StandardPageView(onPageChanged: _onTap, pageController: _pageController),
+      body: StandardPageView(
+          onPageChanged: _onTap, pageController: _pageController),
     );
   }
 
