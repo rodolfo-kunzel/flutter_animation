@@ -1,6 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animation/constants/color_constants.dart';
+import 'package:flutter_animation/constants/icon_constants.dart';
 import 'package:flutter_animation/feature/home/widgets/standard_floating_action_buttom.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class StandardPageView extends StatefulWidget {
   const StandardPageView(
@@ -29,8 +33,27 @@ class PageOne extends StatelessWidget {
   const PageOne({super.key});
 
   @override
-  Widget build(BuildContext context) =>
-      Image.asset('assets/images/sunset_one.jpg');
+  Widget build(BuildContext context) => Material(
+        child: Center(
+          child: Stack(
+            children: [
+              SvgPicture.asset(
+                IconConstants.logo2Snow,
+                color: ColorConstants.blueSnow,
+                height: 200,
+              ),
+              Hero(
+                tag: 'logo',
+                child: SvgPicture.asset(
+                  IconConstants.logoSnow,
+                  color: ColorConstants.yellowSnow,
+                  height: 200,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
 }
 
 class PageTwo extends StatefulWidget {

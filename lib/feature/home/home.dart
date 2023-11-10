@@ -21,13 +21,6 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: ColorConstants.blueSnow,
       appBar: AppBar(
-        leading: Hero(
-          tag: 'logo',
-          child: SvgPicture.asset(
-            IconConstants.logoSnow,
-            height: 30,
-          ),
-        ),
         title: const Text('Animation class'),
         centerTitle: true,
         backgroundColor: ColorConstants.blueSnow,

@@ -29,7 +29,7 @@ class _StandardFloatingActionButtomState
     );
   }
 
-  Future<void> _dialogBuilder(BuildContext context) {
+  Future<void> _dialogBuilder(BuildContext context) { 
     return showGeneralDialog<void>(
       context: context,
       barrierLabel: '',
