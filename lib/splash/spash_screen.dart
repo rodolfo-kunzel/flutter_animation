@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation/constants/color_constants.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_animation/constants/icon_constants.dart';
+import 'package:flutter_svg/svg.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,6 +20,7 @@ class _SplashScreenState extends State<SplashScreen>
   //classes created to deal with animation values
   late final Animation<double> text1TranslationAnimation;
   late final Animation<double> text2TranslationAnimation;
+  late final Animation<double> logoTranslationAnimation;
   late final Animation<double> lineSizeAnimation;
 
   final String title = 'Snowman Labs';
@@ -53,35 +55,41 @@ class _SplashScreenState extends State<SplashScreen>
     text1TranslationAnimation = Tween<double>(begin: 34, end: 0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: const Interval(0.25, 0.85, curve: Curves.easeOutBack),
+        curve: const Interval(0.25, 0.85, curve: Curves.easeInOutCubic),
       ),
     );
     text2TranslationAnimation = Tween<double>(begin: -25, end: 0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: const Interval(0.25, 0.85, curve: Curves.easeOutBack),
+        curve: const Interval(0.25, 0.85, curve: Curves.easeInOutCubic),
+      ),
+    );
+    logoTranslationAnimation = Tween<double>(begin: -400, end: 0).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: const Interval(0.25, 0.85, curve: Curves.easeInOutCubic),
       ),
     );
     //animation to controll sequence of line movement
     lineSizeAnimation = TweenSequence<double>([
       TweenSequenceItem(
-          tween: Tween<double>(begin: 0, end: 180)
-              .chain(CurveTween(curve: Curves.decelerate)),
+          tween: Tween<double>(begin: 0, end: 250)
+              .chain(CurveTween(curve: Curves.easeInOutCubic)),
           weight: 25),
-      TweenSequenceItem(tween: Tween<double>(begin: 180, end: 180), weight: 60),
-      TweenSequenceItem(tween: Tween<double>(begin: 180, end: 0), weight: 15),
+      TweenSequenceItem(tween: Tween<double>(begin: 250, end: 250), weight: 60),
+      TweenSequenceItem(tween: Tween<double>(begin: 250, end: 0), weight: 15),
     ]).animate(controller);
 
     //called after build method in finished
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        controller.animateTo(0.85).whenComplete(
-              () => controller.repeat(min: 0.8, max: 1.0, reverse: true),
-            );
-        Future.wait([
-          //array of future actions to be completed until animation finish
-          backdroundAction(),
-        ]).whenComplete(() => controller.reverse());
+        controller.animateTo(0.85).whenComplete(() {
+          controller.repeat(min: 0.8, max: 1.0, reverse: true);
+          Future.wait([
+            //array of future actions to be completed until animation finish
+            backdroundAction(),
+          ]).whenComplete(() => controller.reverse());
+        });
       },
     );
     super.initState();
@@ -107,13 +115,26 @@ class _SplashScreenState extends State<SplashScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Transform.translate(
+              offset: Offset(logoTranslationAnimation.value, 0),
+              child: SvgPicture.asset(
+                IconConstants.logoSnow,
+                height: 100,
+              ),
+            ),
+            const SizedBox(
+              height: 150,
+            ),
             ClipRRect(
               child: Transform.translate(
                 offset: Offset(0, text1TranslationAnimation.value),
                 child: Text(
                   title,
-                  style: GoogleFonts.rubik(
+                  style: const TextStyle(
                     fontSize: 30,
+                    fontFamily: 'Rubik',
+                    fontWeight: FontWeight.w900,
+                    color: ColorConstants.yellowSnow,
                   ),
                 ),
               ),
@@ -121,15 +142,21 @@ class _SplashScreenState extends State<SplashScreen>
             Container(
               width: lineSizeAnimation.value,
               height: 2,
-              color: Colors.white,
+              decoration: BoxDecoration(
+                color: ColorConstants.yellowSnow,
+                borderRadius: BorderRadius.circular(2),
+              ),
             ),
             ClipRRect(
               child: Transform.translate(
                 offset: Offset(0, text2TranslationAnimation.value),
                 child: Text(
                   subtitle,
-                  style: GoogleFonts.rubik(
+                  style: const TextStyle(
                     fontSize: 20,
+                    fontFamily: 'Rubik',
+                    fontWeight: FontWeight.w900,
+                    color: ColorConstants.yellowSnow,
                   ),
                 ),
               ),
