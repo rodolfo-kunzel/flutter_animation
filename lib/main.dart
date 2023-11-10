@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animation/home/home.dart';
-import 'package:flutter_animation/splash/spash_screen.dart';
+import 'package:flutter_animation/feature/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,13 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       themeMode: ThemeMode.dark,
-      darkTheme: ThemeData.dark(),
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      title: 'Flutter Animation Demo',
       routes: {
-        '/': (context) => const SplashScreen(),
+        '/': (context) => const Home(),
         '/home': (context) => const Home(),
       },
     );
