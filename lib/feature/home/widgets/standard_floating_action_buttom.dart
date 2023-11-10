@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation/constants/color_constants.dart';
 import 'package:flutter_animation/data/facts.dart';
-import 'package:flutter_animation/feature/widgets/list_tile_animated_item.dart';
-import 'package:flutter_animation/feature/widgets/standard_dialog.dart';
+import 'package:flutter_animation/feature/home/widgets/list_tile_animated_item.dart';
+import 'package:flutter_animation/feature/home/widgets/standard_dialog.dart';
 
 class StandardFloatingActionButtom extends StatefulWidget {
   const StandardFloatingActionButtom({super.key});

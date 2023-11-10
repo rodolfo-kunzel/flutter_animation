@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animation/feature/home.dart';
-import 'package:flutter_animation/feature/spash_screen.dart';
+import 'package:flutter_animation/feature/home/home.dart';
+import 'package:flutter_animation/feature/splash/spash_screen.dart';
 
 void main() {
   runApp(const MyApp());

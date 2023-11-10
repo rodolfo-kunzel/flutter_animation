@@ -76,7 +76,7 @@ flutter:
   fonts:
     - family: Rubik
       fonts:
-        - asset: fonts/Rubik-VariableFont_wght.ttf
+        - asset: fonts/Rubik-Bold.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

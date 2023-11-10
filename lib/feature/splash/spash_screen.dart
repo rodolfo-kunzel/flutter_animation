@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation/constants/color_constants.dart';
 import 'package:flutter_animation/constants/icon_constants.dart';
-import 'package:flutter_animation/feature/home.dart';
+import 'package:flutter_animation/feature/home/home.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,6 +23,7 @@ class _SplashScreenState extends State<SplashScreen>
   late final Animation<double> text2TranslationAnimation;
   late final Animation<double> logoTranslationAnimation;
   late final Animation<double> lineSizeAnimation;
+  // late final Animation<double> logoOpacityAnimation;
 
   final String title = 'Snowman Labs';
   final String subtitle = 'Flutter Stack Meeting';
@@ -80,6 +81,15 @@ class _SplashScreenState extends State<SplashScreen>
         curve: const Interval(0.25, 0.85, curve: Curves.easeInOutCubic),
       ),
     );
+
+    // Opacity example
+    // logoOpacityAnimation = Tween<double>(begin: 0, end: 1).animate(
+    //   CurvedAnimation(
+    //     parent: controller,
+    //     curve: const Interval(0.25, 0.85, curve: Curves.decelerate),
+    //   ),
+    // );
+    
     //animation to controll sequence of line movement
     lineSizeAnimation = TweenSequence<double>([
       TweenSequenceItem(
@@ -114,7 +124,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   //fake delay to represent some backdround action
   Future<void> backdroundAction() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 10));
   }
 
   @override
@@ -136,10 +146,13 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
                 Hero(
                   tag: 'logo',
-                  child: SvgPicture.asset(
-                    IconConstants.logoSnow,
-                    height: 100,
-                  ),
+                  // child: Opacity(
+                  //   opacity: logoOpacityAnimation.value,
+                    child: SvgPicture.asset(
+                      IconConstants.logoSnow,
+                      height: 100,
+                    ),
+                  // ),
                 ),
               ],
             ),
@@ -162,9 +175,9 @@ class _SplashScreenState extends State<SplashScreen>
             ),
             Container(
               width: lineSizeAnimation.value,
-              height: 2,
+              height: 4,
               decoration: BoxDecoration(
-                color: ColorConstants.yellowSnow,
+                color: ColorConstants.whiteSnow,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),

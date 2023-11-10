@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation/constants/color_constants.dart';
-import 'package:flutter_animation/feature/widgets/standard_floating_action_buttom.dart';
+import 'package:flutter_animation/feature/home/widgets/standard_floating_action_buttom.dart';
 
 class StandardPageView extends StatefulWidget {
   const StandardPageView(
