@@ -19,8 +19,8 @@ class _SplashScreenState extends State<SplashScreen>
   late final AnimationController controller;
 
   //classes created to deal with animation values
-  late final Animation<double> text1TranslationAnimation;
-  late final Animation<double> text2TranslationAnimation;
+  late final Animation<double> titleTranslationAnimation;
+  late final Animation<double> subtitleTranslationAnimation;
   late final Animation<double> logoTranslationAnimation;
   late final Animation<double> lineSizeAnimation;
   // late final Animation<double> logoOpacityAnimation;
@@ -63,13 +63,13 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     //Tween are objects that represents animations beeing able to link the previous controller with different intervals
-    text1TranslationAnimation = Tween<double>(begin: 34, end: 0).animate(
+    titleTranslationAnimation = Tween<double>(begin: 34, end: 0).animate(
       CurvedAnimation(
         parent: controller,
         curve: const Interval(0.25, 0.85, curve: Curves.easeInOutCubic),
       ),
     );
-    text2TranslationAnimation = Tween<double>(begin: -25, end: 0).animate(
+    subtitleTranslationAnimation = Tween<double>(begin: -25, end: 0).animate(
       CurvedAnimation(
         parent: controller,
         curve: const Interval(0.25, 0.85, curve: Curves.easeInOutCubic),
@@ -161,7 +161,7 @@ class _SplashScreenState extends State<SplashScreen>
             ),
             ClipRRect(
               child: Transform.translate(
-                offset: Offset(0, text1TranslationAnimation.value),
+                offset: Offset(0, titleTranslationAnimation.value),
                 child: Text(
                   title,
                   style: const TextStyle(
@@ -183,7 +183,7 @@ class _SplashScreenState extends State<SplashScreen>
             ),
             ClipRRect(
               child: Transform.translate(
-                offset: Offset(0, text2TranslationAnimation.value),
+                offset: Offset(0, subtitleTranslationAnimation.value),
                 child: Text(
                   subtitle,
                   style: const TextStyle(
